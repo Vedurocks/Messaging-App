@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { searchMessages } from '@/lib/conversation';
 import { verifySession } from '@/lib/session';
+import { ForbiddenError } from '@/lib/authz';
 
 export async function GET(
   request: NextRequest,
@@ -22,9 +23,13 @@ export async function GET(
     }
 
     const limit = parseInt(searchParams.get('limit') || '20');
-    const results = await searchMessages(params.id, query, { limit });
+    const results = await searchMessages(params.id, payload.userId, query, { limit });
 
     return NextResponse.json({ results });
   } catch (error) {
+    if (error instanceof ForbiddenError) {
+      return NextResponse.json({ error: error.message }, { status: 403 });
+    }
     return NextResponse.json({ error: 'Search failed' }, { status: 500 });
   }
+}
