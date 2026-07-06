@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { fetchConversationMessages, sendMessage, markMessagesAsRead } from '@/lib/conversation';
 import { verifySession } from '@/lib/session';
+import { ForbiddenError } from '@/lib/authz';
 
 export async function GET(
   request: NextRequest,
@@ -20,7 +21,7 @@ export async function GET(
     const expandThreads = searchParams.get('expandThreads') !== 'false';
     const threadDepth = parseInt(searchParams.get('threadDepth') || '2');
 
-    const result = await fetchConversationMessages(params.id, {
+    const result = await fetchConversationMessages(params.id, payload.userId, {
       cursor,
       limit,
       expandThreads,
@@ -29,6 +30,9 @@ export async function GET(
 
     return NextResponse.json(result);
   } catch (error) {
+    if (error instanceof ForbiddenError) {
+      return NextResponse.json({ error: error.message }, { status: 403 });
+    }
     console.error('Fetch messages error:', error);
     return NextResponse.json({ error: 'Failed to fetch messages' }, { status: 500 });
   }
@@ -62,9 +66,10 @@ export async function POST(
 
     return NextResponse.json({ success: true, message });
   } catch (error) {
+    if (error instanceof ForbiddenError) {
+      return NextResponse.json({ error: error.message }, { status: 403 });
+    }
     console.error('Send message error:', error);
     return NextResponse.json({ error: 'Failed to send message' }, { status: 500 });
   }
 }
-
-// ============================================================
