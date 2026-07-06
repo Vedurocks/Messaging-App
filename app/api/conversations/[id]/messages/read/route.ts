@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { markMessagesAsRead } from '@/lib/conversation';
 import { verifySession } from '@/lib/session';
+import { ForbiddenError } from '@/lib/authz';
 
 export async function POST(
   request: NextRequest,
@@ -20,11 +21,12 @@ export async function POST(
       return NextResponse.json({ error: 'messageIds array required' }, { status: 400 });
     }
 
-    await markMessagesAsRead(messageIds, payload.userId);
+    await markMessagesAsRead(params.id, messageIds, payload.userId);
     return NextResponse.json({ success: true });
   } catch (error) {
+    if (error instanceof ForbiddenError) {
+      return NextResponse.json({ error: error.message }, { status: 403 });
+    }
     return NextResponse.json({ error: 'Failed to mark as read' }, { status: 500 });
   }
 }
-
-// ============================================================
