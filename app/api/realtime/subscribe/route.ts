@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifySession } from '@/lib/session';
 import { sseManager } from '@/lib/realtime';
+import { assertParticipant, ForbiddenError } from '@/lib/authz';
 
 export async function POST(request: NextRequest) {
   try {
@@ -17,13 +18,19 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'clientId and conversationId required' }, { status: 400 });
     }
 
+    // GAP FIX: this route talked to sseManager directly and never checked
+    // conversation membership — any authenticated user could subscribe to
+    // any conversationId's live event stream. Same class of bug already
+    // fixed in lib/conversation.ts, but this route bypassed it entirely.
+    await assertParticipant(conversationId, payload.userId);
+
     sseManager.subscribeToConversation(clientId, conversationId);
 
-    // Send conversation history snapshot
     return NextResponse.json({ success: true, subscribed: conversationId });
   } catch (error) {
+    if (error instanceof ForbiddenError) {
+      return NextResponse.json({ error: error.message }, { status: 403 });
+    }
     return NextResponse.json({ error: 'Subscription failed' }, { status: 500 });
   }
 }
-
-// ============================================================
