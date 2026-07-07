@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
     const passwordHash = await hashPassword(password);
 
     const inserted = await sql`
-      INSERT INTO users (username, email, password_hash, display_name)
+      INSERT INTO user (username, email, password_hash, display_name)
       VALUES (${username}, ${email}, ${passwordHash}, ${displayName || username})
       RETURNING id
     `;
