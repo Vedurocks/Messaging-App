@@ -22,10 +22,20 @@ let client: NeonQueryFunction<false, true> | undefined;
 
 function getClient(): NeonQueryFunction<false, true> {
   if (!client) {
-    const connectionString = process.env.DATABASE_URL || process.env.POSTGRES_URL;
+    // This project's Neon integration is named "NeonDB" (database:
+    // neon-coral-book), and Vercel prefixes every var from a named
+    // integration to avoid collisions when multiple storage integrations
+    // are connected to the same project. Check the prefixed names first,
+    // then fall back to the unprefixed convention for portability.
+    const connectionString =
+      process.env.NeonDB_DATABASE_URL ||
+      process.env.NeonDB_POSTGRES_URL ||
+      process.env.DATABASE_URL ||
+      process.env.POSTGRES_URL;
+
     if (!connectionString) {
       throw new Error(
-        'No database connection string found. Set DATABASE_URL (preferred) or POSTGRES_URL in your environment.'
+        'No database connection string found. Checked NeonDB_DATABASE_URL, NeonDB_POSTGRES_URL, DATABASE_URL, POSTGRES_URL.'
       );
     }
     // fullResults: true gives back { rows, rowCount, fields } (like `pg`),
