@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirecting · Secure Comms</title>
+  <!-- 
+    This page is a friendly guide for anyone who accidentally landed here.
+    It automatically redirects to the real app after 10 seconds.
+  -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #121212;
+      color: #EDEDED;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .card {
+      max-width: 520px;
+      width: 100%;
+      background: #1A1A1A;
+      border: 1px solid #2A2A2A;
+      border-radius: 2rem;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+      text-align: center;
+      transition: opacity 0.2s;
+    }
+
+    .icon {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      display: inline-block;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #EDEDED;
+      margin-bottom: 0.5rem;
+    }
+
+    .subhead {
+      color: #A0A0A0;
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid #2A2A2A;
+      padding-bottom: 1.25rem;
+    }
+
+    .info-box {
+      background: #1E1E1E;
+      border-radius: 1.25rem;
+      padding: 1.25rem 1rem;
+      margin: 1.25rem 0 1.75rem;
+      border-left: 4px solid #BB86FC;
+      text-align: left;
+    }
+
+    .info-box p {
+      font-size: 0.95rem;
+      color: #D0D0D0;
+      margin-bottom: 0.3rem;
+    }
+
+    .info-box .label {
+      font-weight: 500;
+      color: #BB86FC;
+      letter-spacing: 0.02em;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .timer-ring {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      margin: 1.5rem 0 1.8rem;
+    }
+
+    .timer-badge {
+      background: #2A2A2A;
+      padding: 0.35rem 1rem;
+      border-radius: 999px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #EDEDED;
+      border: 1px solid #3A3A3A;
+      min-width: 70px;
+    }
+
+    .timer-badge span {
+      color: #BB86FC;
+      font-weight: 600;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #BB86FC;
+      color: #121212;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 0.7rem 1.8rem;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.1s;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(187, 134, 252, 0.2);
+    }
+
+    .btn:hover {
+      background: #CBA0FD;
+      transform: scale(1.02);
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    .footnote {
+      margin-top: 1.75rem;
+      font-size: 0.75rem;
+      color: #5C5C5C;
+      border-top: 1px solid #242424;
+      padding-top: 1.25rem;
+    }
+
+    .footnote a {
+      color: #A0A0A0;
+      text-decoration: none;
+      border-bottom: 1px dotted #3A3A3A;
+    }
+
+    .footnote a:hover {
+      color: #EDEDED;
+      border-bottom-color: #BB86FC;
+    }
+
+    /* subtle pulse for the countdown */
+    @keyframes pulse-dot {
+      0% { opacity: 0.4; }
+      50% { opacity: 1; }
+      100% { opacity: 0.4; }
+    }
+
+    .live-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background: #03DAC6;
+      border-radius: 50%;
+      margin-right: 6px;
+      animation: pulse-dot 1.6s infinite;
+    }
+
+    /* tiny responsive */
+    @media (max-width: 460px) {
+      .card { padding: 1.75rem 1.25rem; }
+      h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card" role="main" aria-live="polite">
+    <!-- icon -->
+    <div class="icon">🔐</div>
+
+    <h1>Secure Comms</h1>
+    <div class="subhead">
+      <span class="live-dot"></span> 
+      end‑to‑end · real‑time
+    </div>
+
+    <!-- friendly message -->
+    <div class="info-box">
+      <div class="label">📌 you've reached a redirect page</div>
+      <p style="margin-bottom:0.5rem;">
+        The original link you opened is no longer active. 
+        Don't worry — we're sending you to the correct address.
+      </p>
+      <p style="font-size:0.9rem; color:#A0A0A0;">
+        <span style="color:#BB86FC;">→</span> 
+        <strong style="color:#EDEDED;">messaging-app-dusky.vercel.app</strong>
+      </p>
+    </div>
+
+    <!-- timer + action -->
+    <div class="timer-ring">
+      <span style="color:#A0A0A0; font-size:0.9rem;">redirecting in</span>
+      <span class="timer-badge" id="countdownDisplay">
+        <span id="secondsLeft">10</span>s
+      </span>
+    </div>
+
+    <!-- manual button (redundant, but user-friendly) -->
+    <a href="https://messaging-app-dusky.vercel.app" class="btn" id="manualRedirect">
+      go now → 
+    </a>
+
+    <div class="footnote">
+      <span>⚡ auto‑redirect in <span id="footerSeconds">10</span> seconds · </span>
+      <a href="#" id="cancelLink">stop &amp; stay</a>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // ----- configuration -----
+      const TARGET_URL = 'https://messaging-app-dusky.vercel.app';
+      const COUNTDOWN_START = 10;          // seconds
+      let remaining = COUNTDOWN_START;
+      let timerInterval = null;
+      let redirectTimeout = null;
+      let isCancelled = false;
+
+      // DOM references
+      const secondsSpan = document.getElementById('secondsLeft');
+      const footerSecondsSpan = document.getElementById('footerSeconds');
+      const countdownDisplay = document.getElementById('countdownDisplay');
+      const cancelLink = document.getElementById('cancelLink');
+      const manualBtn = document.getElementById('manualRedirect');
+
+      // ----- helpers -----
+      function updateDisplay() {
+        if (secondsSpan) secondsSpan.textContent = remaining;
+        if (footerSecondsSpan) footerSecondsSpan.textContent = remaining;
+        // subtle visual feedback when < 3s
+        if (remaining <= 3 && countdownDisplay) {
+          countdownDisplay.style.borderColor = '#BB86FC';
+          countdownDisplay.style.background = '#2A1F3A';
+        } else if (countdownDisplay) {
+          countdownDisplay.style.borderColor = '#3A3A3A';
+          countdownDisplay.style.background = '#2A2A2A';
+        }
+      }
+
+      function performRedirect() {
+        if (isCancelled) return;
+        // use location.replace so the user can't hit "back" to this page
+        window.location.replace(TARGET_URL);
+      }
+
+      function stopTimerAndRedirect() {
+        if (timerInterval) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+        }
+        if (redirectTimeout) {
+          clearTimeout(redirectTimeout);
+          redirectTimeout = null;
+        }
+        // if not cancelled, redirect immediately
+        if (!isCancelled) {
+          performRedirect();
+        }
+      }
+
+      function cancelRedirect() {
+        if (isCancelled) return;
+        isCancelled = true;
+        // stop timers
+        if (timerInterval) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+        }
+        if (redirectTimeout) {
+          clearTimeout(redirectTimeout);
+          redirectTimeout = null;
+        }
+        // update UI
+        if (secondsSpan) secondsSpan.textContent = '✕';
+        if (footerSecondsSpan) footerSecondsSpan.textContent = '—';
+        if (countdownDisplay) {
+          countdownDisplay.style.borderColor = '#5C5C5C';
+          countdownDisplay.style.background = '#1E1E1E';
+        }
+        // change button text
+        const btn = document.getElementById('manualRedirect');
+        if (btn) {
+          btn.textContent = '↻ open manually';
+          btn.style.background = '#3A3A3A';
+          btn.style.color = '#EDEDED';
+          btn.href = TARGET_URL;  // still works, but style changed
+        }
+        // update cancel link
+        if (cancelLink) {
+          cancelLink.textContent = 'redirect cancelled';
+          cancelLink.style.color = '#5C5C5C';
+          cancelLink.style.cursor = 'default';
+          cancelLink.removeEventListener('click', handleCancel);
+        }
+        // show a small message
+        const infoBox = document.querySelector('.info-box p:last-of-type');
+        if (infoBox) {
+          infoBox.innerHTML = `<span style="color:#CF6679;">⏸️ auto‑redirect paused.</span> You can still use the button above.`;
+        }
+      }
+
+      function handleCancel(e) {
+        e.preventDefault();
+        cancelRedirect();
+      }
+
+      // ----- initialise countdown -----
+      function init() {
+        // set initial display
+        updateDisplay();
+
+        // interval: tick every second
+        timerInterval = setInterval(function() {
+          if (isCancelled) {
+            // safety: if cancelled, clear interval
+            if (timerInterval) {
+              clearInterval(timerInterval);
+              timerInterval = null;
+            }
+            return;
+          }
+          remaining -= 1;
+          updateDisplay();
+
+          if (remaining <= 0) {
+            // time's up — stop intervals and redirect
+            stopTimerAndRedirect();
+          }
+        }, 1000);
+
+        // fallback redirect timeout (extra safety)
+        redirectTimeout = setTimeout(function() {
+          if (!isCancelled) {
+            stopTimerAndRedirect();
+          }
+        }, (COUNTDOWN_START + 1) * 1000); // +1s buffer
+
+        // event listeners
+        if (cancelLink) {
+          cancelLink.addEventListener('click', handleCancel);
+        }
+
+        // manual button: we keep default behavior, but we also clear timers
+        // so that if user clicks "go now", we don't also redirect later.
+        manualBtn.addEventListener('click', function(e) {
+          // prevent default to handle ourselves? we want the link to work,
+          // but we also want to cancel the auto-timer so it doesn't conflict.
+          // we'll let the link navigate, but clean up timers.
+          if (!isCancelled) {
+            // cancel auto redirect so it doesn't fire after navigation
+            if (timerInterval) {
+              clearInterval(timerInterval);
+              timerInterval = null;
+            }
+            if (redirectTimeout) {
+              clearTimeout(redirectTimeout);
+              redirectTimeout = null;
+            }
+            isCancelled = true;  // prevent any further redirect from timers
+            // update display (cosmetic)
+            if (secondsSpan) secondsSpan.textContent = '⌛';
+            if (footerSecondsSpan) footerSecondsSpan.textContent = '—';
+          }
+          // link will navigate naturally
+        });
+      }
+
+      // start when DOM ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+  </script>
+</body>
+</html>
