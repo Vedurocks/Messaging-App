@@ -5,7 +5,13 @@ export const metadata: Metadata = {
   title: 'Secure Comms',
   description: 'End-to-end conversation platform.',
   icons: {
-    icon: 'https://github.com/Vedurocks/Messaging-App/blob/main/public/image-Photoroom.png?raw=true',
+    icon: [
+      {
+        url: 'https://github.com/Vedurocks/Messaging-App/blob/main/public/image-Photoroom.png?raw=true',
+        type: 'image/png',
+        sizes: '512x512',
+      },
+    ],
   },
 };
 
