@@ -234,7 +234,7 @@ export default function ChatPage() {
   }
 
   return (
-    <main className="flex h-screen overflow-hidden bg-background">
+    <main className="flex h-[calc(100vh-1.5rem)] overflow-hidden bg-background">
       <aside
         className={`flex w-full flex-col border-r border-border bg-background-elevated sm:w-80 sm:shrink-0 ${
           mobileView === 'thread' ? 'hidden sm:flex' : 'flex'
