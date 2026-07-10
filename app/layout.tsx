@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: 'Secure Comms',
   description: 'End-to-end conversation platform.',
   icons: {
-    icon: 'https://github.com/Vedurocks/Messaging-App/blob/main/public/image-Photoroom.ico?raw=true',
+    icon: 'https://github.com/Vedurocks/Messaging-App/blob/main/public/image-Photoroom.png?raw=true',
   },
 };
 
